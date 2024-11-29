@@ -1,0 +1,108 @@
+<form [formGroup]="fieldTypeForm" #formDirective novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Feld-Informationen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="First name" formControlName="firstname">
+            @if (addressForm.controls['firstname'].hasError('required')) {
+              <mat-error>First name is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last name" formControlName="lastname">
+            @if (addressForm.controls['lastname'].hasError('required')) {
+              <mat-error>Last name is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" type="email" formControlName="email">
+            @if (addressForm.controls['email'].hasError('required')) {
+              <mat-error>Email is <strong>required</strong></mat-error>
+            }
+            @if(addressForm.controls['email'].hasError('email')) {
+              <mat-error>Email not <strong>valid</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Telephone" type="phone" formControlName="telephone">
+            @if (addressForm.controls['telephone'].hasError('required')) {
+              <mat-error>Telephone is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input  matInput placeholder="Password" type="password" formControlName="password">
+            @if (addressForm.controls['password'].hasError('required')) {
+              <mat-error>Password is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <h4>Address</h4>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input  matInput placeholder="Country" type="text" formControlName="country">
+            @if (addressForm.controls['country'].hasError('required')) {
+              <mat-error>Country is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input  matInput placeholder="City" type="text" formControlName="city">
+            @if (addressForm.controls['city'].hasError('required')) {
+              <mat-error>City is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input  matInput placeholder="zip" type="text" formControlName="zip">
+            @if (addressForm.controls['zip'].hasError('required')) {
+              <mat-error>Zip is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input  matInput placeholder="Street" name="street" type="text" formControlName="street">
+            @if (addressForm.controls['street'].hasError('required')) {
+              <mat-error>Street is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input  matInput placeholder="HouseNo" name="houseNo" type="text" formControlName="houseNo">
+            @if (addressForm.controls['houseNo'].hasError('required')) {
+              <mat-error>HouseNo is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="addressForm.invalid || !addressForm.dirty">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
