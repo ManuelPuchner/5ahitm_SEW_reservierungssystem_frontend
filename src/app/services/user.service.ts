@@ -10,7 +10,7 @@ import {HttpService} from "./http.service";
 export class UserService {
   private httpService = inject(HttpService);
 
-  public createUser(newUser: User): Observable<User> {
+  createUser(newUser: User): Observable<User> {
     let createdUser = this.httpService.postUser(newUser);
 
     if(createdUser !== null) {
@@ -19,6 +19,11 @@ export class UserService {
       throw new Error("User already exists!");
     }
   }
+
+  getUserList() {
+    return this.httpService.getAllUsers()
+  }
+
 
   constructor() { }
 }

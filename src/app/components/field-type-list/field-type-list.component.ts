@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, OnDestroy, ViewChild} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -10,11 +10,16 @@ import {
 } from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
-import {UserService} from "../../services/user.service";
 import {User} from "../../interface/User";
+import {UserService} from "../../services/user.service";
+import {FieldType} from "../../interface/FieldType";
+import {FieldService} from "../../services/field.service";
+import {MatIconButton} from "@angular/material/button";
+import {MatTooltip} from "@angular/material/tooltip";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
-  selector: 'app-customer-list',
+  selector: 'app-field-type-list',
   standalone: true,
   imports: [
     MatCell,
@@ -29,21 +34,24 @@ import {User} from "../../interface/User";
     MatSort,
     MatSortHeader,
     MatTable,
-    MatHeaderCellDef
+    MatHeaderCellDef,
+    MatIconButton,
+    MatTooltip,
+    MatIcon
   ],
-  templateUrl: './customer-list.component.html',
-  styleUrl: './customer-list.component.css'
+  templateUrl: './field-type-list.component.html',
+  styleUrl: './field-type-list.component.css'
 })
-export class CustomerListComponent implements AfterViewInit {
+export class FieldTypeListComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<User>;
-  dataSource = new MatTableDataSource<User>()
+  @ViewChild(MatTable) table!: MatTable<FieldType>;
+  dataSource = new MatTableDataSource<FieldType>()
 
-  private userService = inject(UserService);
+  private fieldService = inject(FieldService);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'firstname', 'lastname', 'email', 'phone'];
+  displayedColumns = ['id', 'name', 'description', 'delete'];
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
@@ -56,11 +64,18 @@ export class CustomerListComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
+  ngOnDestroy() {
+
+  }
+
   refreshData() {
-    this.userService.getUserList().subscribe(list => {
+    this.fieldService.fieldTypes$.subscribe(list => {
       console.log(list)
       this.dataSource.data = list
     })
   }
 
+  delete(fieldTypeId: FieldType["id"]) {
+    this.fieldService.deleteFieldType(fieldTypeId).subscribe()
+  }
 }

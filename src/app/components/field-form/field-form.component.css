@@ -1,0 +1,13 @@
+.row {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.col {
+  flex-grow: 1;
+}
+
+.full-width {
+  width: 100%;
+}

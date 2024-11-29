@@ -1,0 +1,9 @@
+.flex {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0.5rem;
+}
+
+.flex > * {
+  width: 50%;
+}

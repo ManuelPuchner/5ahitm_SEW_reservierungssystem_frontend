@@ -4,13 +4,11 @@ import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatError, MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {UserService} from "../../services/user.service";
-import {User} from "../../interface/User";
 import {FieldType} from "../../interface/FieldType";
 import {FieldService} from "../../services/field.service";
 
 @Component({
-  selector: 'app-field-form',
+  selector: 'app-field-type-form',
   standalone: true,
     imports: [
         FormsModule,
@@ -25,10 +23,10 @@ import {FieldService} from "../../services/field.service";
         MatInput,
         ReactiveFormsModule
     ],
-  templateUrl: './field-form.component.html',
-  styleUrl: './field-form.component.css'
+  templateUrl: './field-type-form.component.html',
+  styleUrl: './field-type-form.component.css'
 })
-export class FieldFormComponent {
+export class FieldTypeFormComponent {
   fieldService = inject(FieldService);
 
   @ViewChild('formDirective')
@@ -41,28 +39,15 @@ export class FieldFormComponent {
   });
 
   onSubmit(): void {
-
     if (this.fieldTypeForm.valid) {
-      const newFieldType: FieldType = {
-        firstname: this.addressForm.controls['firstname'].value || '',
-        lastname: this.addressForm.controls['lastname'].value || '',
-        email: this.addressForm.controls['email'].value || '',
-        phone: this.addressForm.controls['telephone'].value || '',
-        password: this.addressForm.controls['password'].value || '',
-        country: this.addressForm.controls['country'].value || '',
-        city: this.addressForm.controls['city'].value || '',
-        houseNo: this.addressForm.controls['houseNo'].value || '',
-        street: this.addressForm.controls['street'].value || '',
-        zip: this.addressForm.controls['zip'].value || '',
+      const newFieldType: Omit<FieldType, "id"> = {
+        name: this.fieldTypeForm.controls["name"].value || '',
+        description: this.fieldTypeForm.controls["description"].value || ''
       };
 
 
-      this.userService.createUser(newUser)
-        .subscribe(user => {
-          if(user != null) {
-            this.addressForm.reset( {})
-          }
-        });
+      this.fieldService.createNewFieldType(newFieldType)
+      this.fieldTypeForm.reset();
     }
 
   }

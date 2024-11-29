@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FieldTypeFormComponent } from './field-type-form.component';
+import { FieldFormComponent } from './field-form.component';
 
 describe('FieldFormComponent', () => {
-  let component: FieldTypeFormComponent;
-  let fixture: ComponentFixture<FieldTypeFormComponent>;
+  let component: FieldFormComponent;
+  let fixture: ComponentFixture<FieldFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FieldTypeFormComponent]
+      imports: [FieldFormComponent]
     })
     .compileComponents();
-
-    fixture = TestBed.createComponent(FieldTypeFormComponent);
+    
+    fixture = TestBed.createComponent(FieldFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

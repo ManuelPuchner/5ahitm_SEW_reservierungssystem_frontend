@@ -1,0 +1,54 @@
+<form [formGroup]="fieldForm" #formDirective novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Feld-Informationen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" formControlName="name">
+            @if (fieldForm.controls['name'].hasError('required')) {
+              <mat-error>Name is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input type="number" matInput placeholder="Timeslot Duration (min)" formControlName="timeslotDuration">
+            @if (fieldForm.controls['timeslotDuration'].hasError('required')) {
+              <mat-error>Timeslot Duration is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Open Time" [matTimepicker]="openPicker" formControlName="openTime">
+            <mat-timepicker-toggle matIconSuffix [for]="openPicker"></mat-timepicker-toggle>
+            <mat-timepicker #openPicker></mat-timepicker>
+            @if (fieldForm.controls['openTime'].hasError('required')) {
+              <mat-error>OpenTime is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Close Time" formControlName="closeTime">
+            @if (fieldForm.controls['closeTime'].hasError('required')) {
+              <mat-error>Name is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="fieldForm.invalid || !fieldForm.dirty">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
