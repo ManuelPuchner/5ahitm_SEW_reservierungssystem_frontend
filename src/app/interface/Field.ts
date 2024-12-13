@@ -8,3 +8,13 @@ export interface Field {
   closeTime: string;
   type: FieldType;
 }
+
+export interface CreateField {
+  name: string;
+  timeslotDuration: number;
+  openTime: string;
+  closeTime: string;
+  type: {
+    id: FieldType["id"]
+  }
+}

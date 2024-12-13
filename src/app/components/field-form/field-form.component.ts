@@ -2,10 +2,14 @@ import {Component, inject, ViewChild} from '@angular/core';
 import {FormBuilder, FormsModule, NgForm, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
-import {MatError, MatFormField, MatSuffix} from "@angular/material/form-field";
+import {MatError, MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FieldService} from "../../services/field.service";
-import {Field} from "../../interface/Field";
+import {CreateField, Field} from "../../interface/Field";
+import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
+import {MatOption, MatSelect} from "@angular/material/select";
+import {AsyncPipe} from "@angular/common";
+import {FieldType} from "../../interface/FieldType";
 
 @Component({
   selector: 'app-field-form',
@@ -22,7 +26,12 @@ import {Field} from "../../interface/Field";
     MatFormField,
     MatInput,
     ReactiveFormsModule,
-    MatSuffix
+    MatSuffix,
+    NgxMaterialTimepickerModule,
+    MatSelect,
+    AsyncPipe,
+    MatOption,
+    MatLabel
   ],
   templateUrl: './field-form.component.html',
   styleUrl: './field-form.component.css'
@@ -43,21 +52,20 @@ export class FieldFormComponent {
   });
 
   onSubmit(): void {
-
     if (this.fieldForm.valid) {
-      const newField = {
+      const newField: CreateField = {
         name: this.fieldForm.controls['name'].value || '',
         timeslotDuration: Number(this.fieldForm.controls['timeslotDuration'].value) || -1,
         openTime: this.fieldForm.controls['openTime'].value || '',
         closeTime: this.fieldForm.controls['closeTime'].value || '',
         type: {
-          id: this.fieldForm.controls['fieldType'].value || -1
-        },
+          id: this.fieldForm.controls['fieldType'].value as unknown as FieldType["id"] || -1
+        }
       };
 
-
-
+      console.log(newField)
+      this.fieldService.createField(newField)
+      this.fieldForm.reset();
     }
-
   }
 }

@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {Reservation} from "../interface/Reservation";
 import {ReservationService} from "./reservation.service";
 import {FieldType} from "../interface/FieldType";
+import {CreateField, Field} from "../interface/Field";
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,17 @@ export class HttpService {
 
   deleteFieldType(id: FieldType["id"]) {
     return this.http.delete(`/api/fieldtypes/${id}`)
+  }
+
+  postField(field: CreateField) {
+    return this.http.post<Field>("/api/fields", field);
+  }
+
+  deleteField(id: Field["id"]) {
+    return this.http.delete(`/api/fields/${id}`)
+  }
+
+  getAllFields() {
+    return this.http.get<Field[]>("/api/fields/list")
   }
 }

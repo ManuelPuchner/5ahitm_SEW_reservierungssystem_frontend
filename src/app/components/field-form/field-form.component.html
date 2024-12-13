@@ -26,9 +26,8 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Open Time" [matTimepicker]="openPicker" formControlName="openTime">
-            <mat-timepicker-toggle matIconSuffix [for]="openPicker"></mat-timepicker-toggle>
-            <mat-timepicker #openPicker></mat-timepicker>
+            <input matInput placeholder="Open Time" [format]="24" [ngxTimepicker]="openTimePicker" formControlName="openTime">
+            <ngx-material-timepicker #openTimePicker></ngx-material-timepicker>
             @if (fieldForm.controls['openTime'].hasError('required')) {
               <mat-error>OpenTime is <strong>required</strong></mat-error>
             }
@@ -36,10 +35,26 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Close Time" formControlName="closeTime">
+            <input matInput placeholder="Close Time" [format]="24" [ngxTimepicker]="closeTimePicker" formControlName="closeTime">
+            <ngx-material-timepicker #closeTimePicker></ngx-material-timepicker>
             @if (fieldForm.controls['closeTime'].hasError('required')) {
               <mat-error>Name is <strong>required</strong></mat-error>
             }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Field Type</mat-label>
+            <mat-select required formControlName="fieldType" placeholder="Field Type">
+              @for(fieldType of fieldService.fieldTypes$ | async; track fieldType.id) {
+                <mat-option [value]="fieldType.id">
+                  {{fieldType.name}}
+                </mat-option>
+              }
+            </mat-select>
           </mat-form-field>
         </div>
       </div>

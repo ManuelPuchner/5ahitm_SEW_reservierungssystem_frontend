@@ -3,6 +3,7 @@ import {FieldFormComponent} from "../../components/field-form/field-form.compone
 import {FieldTypeListComponent} from "../../components/field-type-list/field-type-list.component";
 import {MatDialogActions} from "@angular/material/dialog";
 import {FieldTypeFormComponent} from "../../components/field-type-form/field-type-form.component";
+import {FieldListComponent} from "../../components/field-list/field-list.component";
 
 @Component({
   selector: 'app-field-manager',
@@ -11,7 +12,8 @@ import {FieldTypeFormComponent} from "../../components/field-type-form/field-typ
     FieldFormComponent,
     FieldTypeListComponent,
     MatDialogActions,
-    FieldTypeFormComponent
+    FieldTypeFormComponent,
+    FieldListComponent
   ],
   templateUrl: './field-manager.component.html',
   styleUrl: './field-manager.component.css'
